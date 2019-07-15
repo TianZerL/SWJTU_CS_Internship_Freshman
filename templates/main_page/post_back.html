@@ -1,0 +1,27 @@
+{% extends "main_page/index.html" %}
+{% load comments %}
+    {% block postlist %}
+        {{POST.title}}
+        <br />
+        {{POST.content|safe}}
+        {% if user.is_authenticated %}
+        {% get_comment_form for POST as form %}
+        <table>
+          <form action="{% comment_form_target %}" method="post">
+                {% csrf_token %}
+                {{ form.content_type }}
+                {{ form.object_pk }}
+                {{ form.timestamp }}
+                {{ form.security_hash }}
+                <textarea id="id_comment"rows="10"cols="40"name="comment"></textarea>
+                <input type="hidden" name="next" value="{% url 'curr_post' POST.id %}" />
+                <input type="submit" value="提交评论" id="id_submit" />
+        </table>
+        {% else %}
+        <p>请先<a href="{% url 'login' %}">登录</a>后方可评论.</p>
+        {% endif %}
+        {% get_comment_list for POST as comment_list %}
+        {% for comment in comment_list %}
+            <p>{{comment.id}}楼 ，发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br /> {{comment.user_name}} <br /> {{comment.comment|safe}} <hr /></p>
+        {% endfor %}
+    {% endblock postlist %}

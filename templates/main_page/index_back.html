@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>TEST</title>
+    {% load staticfiles %}
+    {% load paginator_tag %}
+    <!--link rel="stylesheet" type="text/CSS" href="{% static 'css/theme.css' %}"-->
+    <link rel="stylesheet" type="text/css" href={% static 'css/prism.css' %}>
+    <script src={% static 'js/prism.js' %}></script>
+    <script src="{% static 'js/tinymce/tinymce.min.js' %}" referrerpolicy="origin"></script>
+    <script>
+
+    tinymce.init({
+        language: 'zh_CN',
+        plugins:'image link emoticons code codesample',
+        toolbar: 'undo redo | bold italic underline strikethrough code emoticons codesample | \
+        fontselect fontsizeselect | forecolor backcolor | \
+        alignleft aligncenter alignright alignjustify | \
+        bullist numlist | outdent indent blockquote | \
+        link unlink image | removeformat',
+        selector: '#id_comment'
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bkbox"></div>
+    <div class="maincontent">
+        <div>
+            {% if user.is_authenticated %}
+                <h1>{{user.username}}</h1>
+            {%else%}
+                <h1>帖子</h1>
+            {%endif%}
+        </div>
+
+        <div>
+        {% block postlist %}
+            {% for posts in CURR_PAGE %}
+                <a href="/post/{{posts.id}}/"> {{posts.title}} </a>
+                <hr />
+            {%endfor%}
+
+            <nav>
+
+                <ul>
+                {% if CURR_PAGE.has_previous %}
+                  <li ><a href="?page={{ CURR_PAGE.previous_page_number }}">上一页</a></li>
+                {% endif %}
+          
+                {% PAGINATION CURR_PAGE PAGINATOR 10 4 as page_list %}  <!-- 引用自定义标签，并传入参数 -->
+          
+                {{ page_list|safe }}  <!--  显示 -->
+          
+                {% if CURR_PAGE.has_next %}
+                  <li><a href="?page={{ CURR_PAGE.next_page_number }}">下一页</a></li>
+                {% endif %}
+                </ul>         
+           </nav>
+
+            <div>
+                <form action="/post_sub/" method="post">
+                    {% csrf_token %}
+                    <input type="text" name='title' /> <br />
+                    <textarea name='summary'></textarea> <br />
+                    <select name='category'>
+                        <option value="1">C</option>
+                        <option value="2">C++</option>
+                        <option value="3">Python</option>
+                        <option value="4">Java</option>
+                    </select> <br />
+                    <textarea id='id_comment' name='content'> </textarea>
+                    <input type="submit" value="提交"/>
+                </form>    
+            </div>
+        {% endblock postlist %}
+        </div>
+    </div>
+</body>

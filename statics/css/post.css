@@ -1,0 +1,246 @@
+.body{
+    background-color:#F5F6F7;
+    min-width: 100%;
+    min-height: 100%;
+}
+.Head{
+    margin-left:5%;
+    height:170px;
+    width:100%;
+    background-color:#F5F6F7;
+}
+.Hlogo {
+    height: 150px;
+    float:left;
+    width: 8%;
+    background-color:#F5F6F7;
+}
+.Hti{
+    height: 50px;
+    width:80%;
+    text-align:center;
+    font-family:"Times New Roman",Times,serif;
+    float:left;
+    background-color:#F5F6F7;
+
+}
+.Himage{
+    text-align:center;
+    float:left;
+    height:130px ;
+    width:80%;
+    background-color:#F5F6F7;
+}
+
+.daohang{
+    margin-left:5%;
+    margin-right: 5%;
+    clear:both;
+    border:1px solid #bbb;
+    margin-top: 30px;
+    height: 50px;
+    text-align:center;
+    font-family:"华文新魏",Times,serif;
+    font-size:17px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:white;
+    text-align:center;
+}
+li.class1 {
+    float: left;
+}
+
+li.class1:first-child {
+    float:left; 
+    margin-left:1%;
+    width:8%;
+}
+li.class1:nth-of-type(2) {
+    float:left; 
+    width:20%;
+    margin-left:4%;
+
+}
+li.class1:nth-of-type(3) {
+    float:left; 
+    width:20%;
+    margin-left:4%;
+
+}
+li.class1:nth-of-type(4) {
+    float:left; 
+    width:8%;
+    margin-left:0%;
+
+}
+li.class1:nth-of-type(5) {
+    float:left; 
+    margin-left:4%;
+    width:8%;
+}
+li.class1:nth-of-type(6) {
+    float:left; 
+    width:8%;
+    margin-left:3%;
+
+}
+li.class1:last-child {
+    float:left; 
+    width:8%;
+    margin-right:3%;
+}
+
+li a {
+    display: block;
+    color:black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background: linear-gradient( rgba(239, 250, 245, 0) 1% , rgba(158, 148, 166,0.5) 100%);
+
+    background: -o-linear-gradient( rgba(239, 250, 245, 0) 1% , rgba(158, 148, 166,0.5) 100%);
+
+    background: -ms-linear-gradient( rgba(239, 250, 245, 0) 1% , rgba(158, 148, 166,0.5) 100%);
+
+    background: -moz-linear-gradient(rgba(239, 250, 245, 0) 1% , rgba(158, 148, 166,0.5) 100%);
+
+    background: -webkit-linear-gradient( rgba(239, 250, 245, 0) 1% , rgba(158, 148, 166,0.5) 100%);
+}
+
+.parent {
+    width: 30%;
+    height: 42px;
+    top: 4px;
+    position: relative;
+    float:left;
+
+}
+
+.parent>input:first-of-type {
+    /*输入框高度设置为40px, border占据2px，总高度为42px*/
+    width: 380px;
+    height: 40px; 
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    position: relative;
+    float:left;
+
+}
+.parent>input:first-of-type:focus {
+    border: 1px solid #317ef3;
+    padding-left: 10px;
+    float:left;
+
+}
+.parent>input:last-of-type {
+    /*button按钮border并不占据外围大小，设置高度42px*/
+    width: 100px;
+    height: 40px; 
+    position: absolute;
+    background: #317ef3;
+    border: 1px solid #317ef3;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    float:left;
+}
+
+.Myinput{
+    /*输入框高度设置为40px, border占据2px，总高度为42px*/
+    height: 40px; 
+    border: 1px solid #ccc;
+    margin-top: 2px;
+    font-size: 16px;
+    outline: none;
+    position: relative;
+    float:left;
+    width: 100%;
+}
+
+
+.mokuai{
+    margin-top: 1%;
+    margin-left: 3%;
+    height: 100%;
+    width:10%;
+    float:left;
+    padding: 0;
+    position:fixed;
+}
+h1.ziti{
+    font-family: '华文中宋', 'Arial Narrow', Arial, sans-serif;
+    color:#02A7F0;
+    background-color:white;
+    text-align:center;
+    vertical-align:middle
+}
+
+ul.Myul{
+    font-family:"Times New Roman",Times,serif;
+    font-size:30px;
+}
+.ti{
+    text-align:center;
+    margin-top: 50px;
+    width: 60%;
+    height:50px;
+    margin:0 auto;
+    background-color:whitesmoke;
+}
+.timushiyang{
+    font-family: "黑体";
+    text-shadow: 5px 5px 5px #FF0000;
+}
+.zuozhe{
+    text-align:center;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    width: 40%;
+    height:50px;
+    margin:0 auto;
+    background-color:whitesmoke;
+}
+.zhuti{
+    width: 100%;
+    height:fit-content;
+    margin-top: 15%;
+    margin:0 auto;
+    background-color:whitesmoke;
+    margin-bottom:50px;
+    /*word-wrap:break-word;*/
+}
+.write
+{
+    margin:0 auto;
+    background-color:whitesmoke;
+    width: 100%;
+    height:400px;
+    text-align:center;
+    margin-bottom:50px;
+}
+.pinglun{
+    /* float: right; */
+    width: 70%;
+    height:fit-content;
+    margin-top: 3%;
+    margin-right: 10%;
+    background-color:whitesmoke;
+    word-wrap:break-word;
+}
+.zhu{
+    float:right;
+    margin-right: 10%;
+    height:auto;
+    width:65%;
+    background-color:whitesmoke;
+    overflow: auto;
+}
