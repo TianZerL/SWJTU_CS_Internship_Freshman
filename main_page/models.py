@@ -12,7 +12,7 @@ class userinfo(models.Model):
     signature = models.CharField(max_length=256,default='Hello World!')
     objects = models.Manager()
     def __str__(self):
-        return self.name
+        return '%s (%s)' %(self.name,self.user.username)
 
 
 class post(models.Model):

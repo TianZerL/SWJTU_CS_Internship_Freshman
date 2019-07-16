@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.views.static import serve
+from django.conf.urls.static import static
+from swjtu_code_web import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,4 +25,4 @@ urlpatterns = [
     path('account/',include('account_page.urls')),
     path('u/',include('my_page.urls')),
     path('comments/', include('django_comments.urls')),
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

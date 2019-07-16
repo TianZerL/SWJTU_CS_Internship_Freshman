@@ -1,41 +1,38 @@
 .body {
     background-color: #F5F6F7;
-    min-width: 100%;
-    min-height: 100%;
 }
 
 .Head{
     margin-left:5%;
     height:170px;
-    width:100%;
+    width:auto;
     background-color:#F5F6F7;
 }
 .Hlogo {
     height: 150px;
     float:left;
-    width: 8%;
+    width: auto;
     background-color:#F5F6F7;
 }
 .Hti{
-    height: 50px;
-    width:80%;
+    height:auto;
+    width:auto;
     text-align:center;
     font-family:"Times New Roman",Times,serif;
-    float:left;
     background-color:#F5F6F7;
 
 }
 .Himage{
     text-align:center;
-    float:left;
     height:130px ;
-    width:80%;
+    width:auto;
     background-color:#F5F6F7;
 }
 
 .daohang {
     margin-left: 5%;
     margin-right: 5%;
+    width: auto;
     clear: both;
     border: 1px solid #bbb;
     margin-top: 30px;
@@ -102,18 +99,18 @@ li.class1:last-child {
 
 li a {
     display: block;
-    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    background-color:white;
+    color: black;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
 
 li a:hover {
-    background: linear-gradient( rgba(239, 250, 245, 0) 1%, rgba(158, 148, 166, 0.5) 100%);
-    background: -o-linear-gradient( rgba(239, 250, 245, 0) 1%, rgba(158, 148, 166, 0.5) 100%);
-    background: -ms-linear-gradient( rgba(239, 250, 245, 0) 1%, rgba(158, 148, 166, 0.5) 100%);
-    background: -moz-linear-gradient(rgba(239, 250, 245, 0) 1%, rgba(158, 148, 166, 0.5) 100%);
-    background: -webkit-linear-gradient( rgba(239, 250, 245, 0) 1%, rgba(158, 148, 166, 0.5) 100%);
+    background-color: #e7e7e7;
+    color: white;
 }
 
 .parent {
@@ -170,7 +167,7 @@ li a:hover {
     margin-top: 1%;
     margin-left: 3%;
     height: 100%;
-    width: 10%;
+    width: 8%;
     float: left;
     padding: 0;
     position: fixed;
@@ -307,9 +304,17 @@ input#img6:checked~.dots label#dot6 {
     background-color: #F5F6F7;
     margin-left: 14%;
     float: left;
-    min-height: 1000px;
     width: 53%;
     margin-top: 2%;
+}
+
+.fanye {
+    background-color: #F5F6F7;
+    margin-left: 14%;
+    float: left;
+    width: 53%;
+    margin-top: 2%;
+
 }
 
 .row {

@@ -52,5 +52,57 @@ def post_sub(request):
 
 def category_show(request,category_id):
     post_list = post.objects.filter(category__id=category_id)
-    var={'POST_LIST':post_list,'CATEGORY_LIST':category_list}
+    paginator = Paginator(post_list,20)
+    curr_page_num = request.GET.get('page')
+    try:
+        curr_page = paginator.page(curr_page_num)
+    except PageNotAnInteger:
+        curr_page = paginator.page(1)
+    except EmptyPage:
+        curr_page = paginator.page(paginator.num_pages)
+    var={
+        'POST_LIST':post_list,
+        'CATEGORY_LIST':category_list,
+        'CURR_PAGE':curr_page,
+        'PAGINATOR':paginator
+    }
     return render(request,'main_page/category.html',var)
+
+
+def search(request):
+    keyword = request.GET.get('keyword')
+    if not keyword:
+        error_msg = '请输入关键字'
+        post_list = post.objects.all()
+        paginator = Paginator(post_list,20)
+        curr_page_num = request.GET.get('page')
+        try:
+            curr_page = paginator.page(curr_page_num)
+        except PageNotAnInteger:
+            curr_page = paginator.page(1)
+        except EmptyPage:
+            curr_page = paginator.page(paginator.num_pages)
+        var={
+        'POST_LIST':post_list,
+        'CATEGORY_LIST':category_list,
+        'CURR_PAGE':curr_page,
+        'PAGINATOR':paginator,
+        'error_msg':error_msg
+        }
+        return render(request,'main_page/index.html',var)
+    post_list = post.objects.filter(title__icontains=keyword)
+    paginator = Paginator(post_list,20)
+    curr_page_num = request.GET.get('page')
+    try:
+        curr_page = paginator.page(curr_page_num)
+    except PageNotAnInteger:
+        curr_page = paginator.page(1)
+    except EmptyPage:
+        curr_page = paginator.page(paginator.num_pages)
+    var={
+        'POST_LIST':post_list,
+        'CATEGORY_LIST':category_list,
+        'CURR_PAGE':curr_page,
+        'PAGINATOR':paginator
+    }
+    return render(request,'main_page/index.html',var)

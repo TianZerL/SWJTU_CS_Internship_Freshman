@@ -1,20 +1,31 @@
-{% block content %}<h2>Login</h2>{% if message %} 
-{{ message }}{% endif %}<div class="form-wrapper">   
-    <form method="post" action="" enctype="multipart/form-data">      
-        {% csrf_token %}      
-        {% for field in form %}           
-        <div class="fieldWrapper">        
-            {{ field.errors }}        
-            {{ field.label_tag }} {{ field }}        
-            {% if field.help_text %}             
-            <p class="help">{{ field.help_text|safe }}</p>        
-            {% endif %}           
-        </div>        
-        {% endfor %}      
-        <div class="button-wrapper submit">         
-            <input type="submit" value="Login" />      
-        </div>   
-    </form>    
-    <a href="/account/register">Register</a>
+{% extends "account_page/temp.html" %}
+
+{% block content %}
+<div class="login_div ">
+    <h2>登录</h2>
+    {% if message %}
+    {{ message }}
+    {% endif %}
+    <form class="form-horizontal" role="form" method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        {% if field.errors %}
+        <p>{{ field.errors|safe }}</p>
+        {% endif %}
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                {{ field.label_tag }}
+            </div>
+            <div class="col-sm-10">
+                {{ field }}
+            </div>
+        </div>
+        {% if field.help_text %}
+        <p>{{ field.help_text|safe }}</p>
+        {% endif %}
+        {% endfor %}
+        <input type="submit" value="登录" class="submit" />
+    </form>
+    <p style="float: left;">没有账户？<a href="/account/register">注册</a>一个</p>
 </div>
 {% endblock %}

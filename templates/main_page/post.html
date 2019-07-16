@@ -1,44 +1,78 @@
-{% extends "main_page/index.html" %} {% load staticfiles %} {% load paginator_tag %} {% load comments %} {% block postlist %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
-<div class="zhu">
-    <div class="ti">
-        <h1 class="timushiyang">{{POST.title}}</h1>
+{% extends "main_page/index.html" %} {% load staticfiles %} {% load comments %}
+{% block postlist %}
+{% load paginator_tag %}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="jumbotron">
+            <div>
+                <h1>{{POST.title}}</h1>
+            </div>
+            <div>
+                <p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>作者</th>
+                                <th>阅览数</th>
+                                <th>发布时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>{{ POST.author }}</th>
+                                <th>{{ POST.view_count }}</th>
+                                <th>{{ POST.publish_date }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                </p>
+            </div>
+            <div class="well">
+                <p>{{POST.content|safe}}</p>
+                <hr>
+            </div>
+        </div>
     </div>
-    <div class="zuozhe">
-        <h3 class="ziti">
-            <center><img src="{% static 'image/timg.jpg' %}" alt="导航" height="30" width="40">作者</center>
-            <hr>
-        </h3>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div>
+            {% get_comment_form for POST as form %}
+            <h1>编写评论</h1>
+            <table>
+                <form action="{% comment_form_target %}" method="post">
+                    {% csrf_token %} {{ form.content_type }} {{ form.object_pk }} {{ form.timestamp }}
+                    {{ form.security_hash }}
+                    <textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
+                    <input type="hidden" name="next" value="{% url 'curr_post' POST.id %}" />
+            {% if user.is_authenticated %}
+                    <br />
+                    <input class="btn btn-default" type="submit" value="提交评论" id="id_submit" />
+                    <hr />
+            </table>
+            {% else %}
+            </table>
+            <p>请先<a href="{% url 'login' %}">登录</a>后方可评论.</p>
+            {% endif %}
+        </div>
     </div>
-    <div class="zhuti">
-        <p>{{POST.content|safe}}</p>
-        <hr>
-    </div>
-    <div class="write">
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <ul class="list-group">
+            {% get_comment_list for POST as comment_list %}
+            {% for comment in comment_list %}
+            <li class="list-group-item">
+                <p>{{comment.id}}楼 ，发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br />
+                    来自:{{comment.user_name}} <br />
+                    <hr />
+                    {{comment.comment|safe}}
+                </p>
 
-        {% get_comment_form for POST as form %}
-        <h1>编写评论</h1>
-        <table>
-            <form action="{% comment_form_target %}" method="post">
-                {% csrf_token %} {{ form.content_type }} {{ form.object_pk }} {{ form.timestamp }} {{ form.security_hash }}
-                <textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
-                <input type="hidden" name="next" value="{% url 'curr_post' POST.id %}" />
-        {% if user.is_authenticated %} 
-                <input type="submit" value="提交评论" id="id_submit" />
-        </table>
-        {% else %}
-        </table>
-        <p>请先<a href="{% url 'login' %}">登录</a>后方可评论.</p>
-        {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
     </div>
-
-    {% get_comment_list for POST as comment_list %} 
-        {% for comment in comment_list %}
-    <div class="pinglun">
-        <p>{{comment.id}}楼 ，发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br /> {{comment.user_name}} <br /> {{comment.comment|safe}}
-            <hr />
-        </p>
-    </div>
-    {% endfor %}
 </div>
 {% endblock postlist %}

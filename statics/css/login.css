@@ -1,0 +1,92 @@
+body {
+    background-image: url(../image/background.jpg);
+}
+div.login_div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+}
+
+.login_form {
+    text-align: center;
+}
+
+input[type=text] {
+    width: 70%;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid;
+    border-bottom-color: #e7e7e7;
+    opacity: 0.4;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+
+input[type=text]:hover {
+    width: 90%;
+}
+
+
+input[type=password] {
+    width: 70%;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid;
+    border-bottom-color: #e7e7e7;
+    opacity: 0.4;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+input[type=password]:hover {
+    width: 90%;
+}
+
+input[type=email] {
+    width: 70%;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid;
+    border-bottom-color: #e7e7e7;
+    opacity: 0.4;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+input[type=email]:hover {
+    width: 90%;
+}
+
+.submit {
+    width: 75%;
+    background-color:white;
+    color: black;
+    font-size: 18px;
+    padding: 15px 32px;
+    border: 2px solid #e7e7e7;
+    border-radius: 12px;
+    margin: 10px auto;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: #e7e7e7;
+    color: white;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.submit:active {
+    background-color: white;
+    color: black;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+
+

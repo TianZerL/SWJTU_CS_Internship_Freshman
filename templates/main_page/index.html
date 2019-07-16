@@ -2,12 +2,13 @@
 <html>
 
 <head>
-    {% load staticfiles %} {% load paginator_tag %}
-    <link rel="stylesheet" type="text/CSS" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" type="text/css" href={% static 'css/prism.css' %}>
-    <script src={% static 'js/prism.js' %}></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/prism.js' %}"></script>
     <script src="{% static 'js/tinymce/tinymce.min.js' %}" referrerpolicy="origin"></script>
-    <script src="{% static 'js/tinymce/jquery-1.11.3.min.js' %}" referrerpolicy="origin"></script>
+    <script src="{% static 'js/jquery-1.11.3.min.js' %}" referrerpolicy="origin"></script>
+    <script src="{% static 'js/bootstrap.js' %}" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             language: 'zh_CN',
@@ -22,158 +23,245 @@
     </script>
 </head>
 
-<body class="body">
-    <div class="Head"> <img class="Hlogo" src="{% static 'image/logo.png' %}" alt="logo"> <img class="Himage" src="{% static 'image/jiaoda.png' %}" alt="jiaoda">
-        <h3 class="Hti">SWJTU Code Exchange Platform</h3>
-    </div>
-    <div class="row">
-        <div class="daohang">
-            <ul>
-                <li class="class1"><a href="{% url 'index' %}">主页</a></li>
-                <li class="class1"><a href="http://jwc.swjtu.edu.cn/index.html">教务网：@swjtu.edu.cn</a></li>
-                <li class="class1">
-                    <form action="">
-                        <input class="Myinput" type="text" value="请输入搜索内容" onfocus="javascript:if(this.value=='请输入搜索内容')this.value='';">
-                    </form>
-                </li>
-                <li class="class1">
-                    <form action="" class="parent">
-                        <input type="button" value="搜索">
-                    </form>
-                </li>
-                <li class="class1"><a href="#contact">发帖</a></li>
-                <li class="class1"><a href="{% url 'login' %}">登陆</a></li>
-                <li class="class1" style="float:right"><a href="{% url 'register' %}">注册</a></li>
-            </ul>
+<body>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-2 column">
+                <img alt="logo" src="{% static 'image/logo.png' %}" height="140" width="140" />
+            </div>
+            <div class="col-md-10 column">
+                <img alt="title" src="{% static 'image/jiaoda.png' %}" width="1000" />
+            </div>
         </div>
-        <div class="mokuai">
-            <h1 class="ziti">
-                <center>
-                    <img src="{% static 'image/timg.jpg' %}" alt="导航" height="50" width="80">模块
-                </center>
-            </h1>
-            <hr style="border:1px solid #D5C5C5;" />
-            <ul class="Myul">
-                <li><a href="/category/1/">C</a></li>
-                <hr style="border:1px solid #D5C5C5;" />
-                <li><a href="/category/2/">C++</a></li>
-                <hr style="border:1px solid #D5C5C5;" />
-                <li><a href="/category/3/">Python</a></li>
-                <hr style="border:1px solid #D5C5C5;" />
-                <li><a href="/category/4/">Java</a></li>
-            </ul>
-        </div>
-
-        {% block postlist %}
-        <div class="news">
-            <div class="photo" id="photo">
-
-                <!--//1-->
-
-                <input type="radio" name="btn" id="img1" checked />
-                <div class="control">
-                    <div class="image"><img src="{% static 'image/roll/1.jpg' %}" height="250" width="400" /></div>
-                    <div class="nav">
-                        <label for="img6" class="up leftjianbian">
-              <</label> <label for="img2" class="down rightjianbian">>
-            </label>
-                    </div>
-                </div>
-
-                <!--//2-->
-
-                <input type="radio" name="btn" id="img2" />
-                <div class="control">
-                    <div class="image"><img src="{% static 'image/roll/2.jpg' %}" height="250" width="400" /></div>
-                    <div class="nav">
-                        <label for="img1" class="up leftjianbian">
-              <</label> <label for="img3" class="down rightjianbian">>
-            </label>
-                    </div>
-                </div>
-
-                <!--//3-->
-
-                <input type="radio" name="btn" id="img3" />
-                <div class="control">
-                    <div class="image"><img src="{% static 'image/roll/3.jpg' %}" height="250" width="400" /></div>
-                    <div class="nav">
-                        <label for="img2" class="up leftjianbian">
-              <</label> <label for="img4" class="down rightjianbian">>
-            </label>
-                    </div>
-                </div>
-
-                <!--//4-->
-
-                <input type="radio" name="btn" id="img4" />
-                <div class="control">
-                    <div class="image"><img src="{% static 'image/roll/4.jpg' %}" height="250" width="400" /></div>
-                    <div class="nav">
-                        <label for="img3" class="up leftjianbian">
-              <</label> <label for="img5" class="down rightjianbian">>
-            </label>
-                    </div>
-                </div>
-
-                <!--//5-->
-
-                <input type="radio" name="btn" id="img5" />
-                <div class="control">
-                    <div class="image"><img src="{% static 'image/roll/5.jpg' %}" height="250" width="400" /></div>
-                    <div class="nav">
-                        <label for="img4" class="up leftjianbian">
-              <</label> <label for="img6" class="down rightjianbian">>
-            </label>
-                    </div>
-                </div>
-
-                <!--//6-->
-
-                <input type="radio" name="btn" id="img6" />
-                <div class="control">
-                    <div class="image"><img src="{% static 'image/roll/6.jpg' %}" height="250" width="400" /></div>
-                    <div class="nav">
-                        <label for="img5" class="up leftjianbian">
-              <</label> <label for="img1" class="down rightjianbian">>
-            </label>
-                    </div>
-                </div>
-                <div class="dots">
-                    <label for="img1" class="dot" id="dot1"></label>
-                    <label for="img2" class="dot" id="dot2"></label>
-                    <label for="img3" class="dot" id="dot3"></label>
-                    <label for="img4" class="dot" id="dot4"></label>
-                    <label for="img5" class="dot" id="dot5"></label>
-                    <label for="img6" class="dot" id="dot6"></label>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="page-header">
+                    <h1>
+                        西南交通大学 <small>代码交流平台</small>
+                    </h1>
                 </div>
             </div>
         </div>
-        <div>
-            <div class="Tiezi">
-                <ul>
-                    {% for list in POST_LIST %}
-                    <li class="Myli">
-                        <a href="/post/{{list.id}}/">
-                            <h4>{{ list.title }}</h4>
-                        </a>
-                        <div>
-                            <p>{{ list.summary }}</p>
-                            <br>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle
+                                navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span
+                                class="icon-bar"></span></button> <a class="navbar-brand" href="/">首页</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="http://jwc.swjtu.edu.cn/index.html">教务</a>
+                            </li>
+                            <li>
+                                <a href="https://www.swjtu.edu.cn/">官网</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">快捷链接<strong
+                                        class="caret"></strong></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Another action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Something else here</a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                    <li>
+                                        <a href="#">Separated link</a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                    <li>
+                                        <a href="#">One more separated link</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form method="get" action="/search/" class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="keyword" />
+                            </div> <button type="submit" class="btn btn-default">搜索</button>
+                            {% if error_msg %}
+                            <script>
+                                alert("请输入关键词")
+                            </script>
+                            {% endif %}
+
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户<strong
+                                        class="caret"></strong></a>
+                                <ul class="dropdown-menu">
+                                    {% if not user.is_authenticated %}
+                                    <li>
+                                        <a href="{% url 'login' %}">登录</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'register' %}">注册</a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                        <a href="{% url 'user_page' name=user.username %}">{{user.username}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'logout' %}">注销</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </div>
+        </div>
+        {% block main %}
+        <div class="row clearfix">
+            <div class="col-md-2 column">
+                <div class="list-group">
+                    <a class="list-group-item active">版块</a>
+                    <a href="/category/1/" class="list-group-item">C</a>
+                    <a href="/category/2/" class="list-group-item">C++</a>
+                    <a href="/category/3/" class="list-group-item">Python</a>
+                    <a href="/category/4/" class="list-group-item">Java</a>
+
+                </div>
+                <div class="carousel slide" id="carousel-63335">
+                    <ol class="carousel-indicators">
+                        <li data-slide-to="0" data-target="#carousel-63335">
+                        </li>
+                        <li data-slide-to="1" data-target="#carousel-63335">
+                        </li>
+                        <li data-slide-to="2" data-target="#carousel-63335" class="active">
+                        </li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item">
+                            <img alt="" src="{% static 'image/roll/1.jpg' %}" />
+                            <div class="carousel-caption">
+                                <h4>
+                                    First Thumbnail label
+                                </h4>
+                                <p>
+                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                    porta
+                                    gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                </p>
+                            </div>
                         </div>
-                        <table class="Mytable">
-
-                            <th>作者：{{ list.author }}</th>
-                            <th>阅览数：{{ list.view_count }}</th>
-                            <th>发布时间：{{ list.publish_date }}</th>
-                        </table>
-                        <div class="jiange"></div>
-                    </li>
-                    {%endfor%}
-                </ul>
+                        <div class="item">
+                            <img alt="" src="{% static 'image/roll/2.jpg' %}" />
+                            <div class="carousel-caption">
+                                <h4>
+                                    Second Thumbnail label
+                                </h4>
+                                <p>
+                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                    porta
+                                    gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item active">
+                            <img alt="" src="{% static 'image/roll/3.jpg' %}" />
+                            <div class="carousel-caption">
+                                <h4>
+                                    Third Thumbnail label
+                                </h4>
+                                <p>
+                                    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                    porta
+                                    gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                </p>
+                            </div>
+                        </div>
+                    </div> <a class="left carousel-control" href="#carousel-63335" data-slide="prev"><span
+                            class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control"
+                        href="#carousel-63335" data-slide="next"><span
+                            class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
             </div>
-            {% endblock postlist %}
+            <div class="col-md-10 column">
+
+                {% block postlist %}
+                {% load paginator_tag %}
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <ul class="breadcrumb">
+                            <li class="active">
+                                Home
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <ul class="list-group">
+                            {% for post in CURR_PAGE %}
+                            <li class="list-group-item ">
+                                <a href="/post/{{post.id}}/">
+                                    <h3 class="list-group-item-heading">{{ post.title }}</h4>
+                                </a>
+                                <div>
+                                    <p class="list-group-item-text">{{ post.summary }}</p>
+                                    <br>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60%">作者</th>
+                                            <th>阅览数</th>
+                                            <th>发布时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>{{ post.author }}</th>
+                                            <th>{{ post.view_count }}</th>
+                                            <th>{{ post.publish_date }}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <ul class="pagination">
+                            {% if CURR_PAGE.has_previous %}
+                            <li><a href="?page={{ CURR_PAGE.previous_page_number }}">上一页</a></li>
+                            {% endif %}
+
+                            {% PAGINATION CURR_PAGE PAGINATOR 10 4 as page_list %}
+                            <!-- 引用自定义标签，并传入参数 -->
+
+                            {{ page_list|safe }}
+                            <!--  显示 -->
+
+                            {% if CURR_PAGE.has_next %}
+                            <li><a href="?page={{ CURR_PAGE.next_page_number }}">下一页</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                {% endblock postlist %}
+            </div>
         </div>
+        {% endblock main %}
+    </div>
+
 </body>
 
 </html>

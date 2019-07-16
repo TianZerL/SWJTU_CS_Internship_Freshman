@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Account</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/jquery-1.11.3.min.js' %}" referrerpolicy="origin"></script>
+    <script src="{% static 'js/bootstrap.js' %}" referrerpolicy="origin"></script>
+</head>
+
+<body>
+        {% block content %}
+        <div class="login_div ">
+        <form class="login_form">
+            <table>
+                <tr>
+                    <td>用户名</td>
+                    <td><input type="text" id="username_fm" class="form_input"> <br /></td>
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td><input type="password" id="password_fm" class="form_input"> <br /></td>
+                </tr>
+            </table>
+            <input type="submit" id="submit_bt" value="登录" onclick=login() class="submit">
+        </form>
+    </div>
+        {%endblock content%}
+</body>
+
+</html>

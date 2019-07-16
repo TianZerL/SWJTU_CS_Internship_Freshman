@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
             'libraries':{
                 'paginator_tag': 'main_page.paginator_tag'
@@ -134,3 +135,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'statics'),
 ]
+
+MEDIA_URL = '/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
