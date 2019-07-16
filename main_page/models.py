@@ -31,8 +31,8 @@ class post(models.Model):
         return self.title
 
 class post_like(models.Model):
-    post = models.OneToOneField(post,on_delete=models.CASCADE)
-    like_user = models.OneToOneField(userinfo,on_delete=models.CASCADE)
+    post = models.ForeignKey(post,on_delete=models.CASCADE)
+    like_user = models.ForeignKey(userinfo,on_delete=models.CASCADE)
     like_time = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 

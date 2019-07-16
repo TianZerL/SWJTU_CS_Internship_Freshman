@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import post,userinfo,category
+from .models import post,userinfo,category,post_like_count
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 # Create your views here.
 
 category_list = category.objects.all()
 
 def index(request):
-    post_list = post.objects.all()
+    post_list = post.objects.all().order_by("-id")
     paginator = Paginator(post_list,20)
     curr_page_num = request.GET.get('page')
     try:
@@ -38,7 +38,7 @@ def post_sub(request):
     title=request.POST.get('title')
     categorys = category.objects.get(id=int(request.POST.get('category')))
     author = userinfo.objects.get(user__username=request.user)
-    post.objects.create(
+    currpost = post.objects.create(
         title =  title,
         summary = summary,
         category = categorys,
@@ -48,10 +48,19 @@ def post_sub(request):
         author = author,
         ranking = 1,
     )
+    post_like_count.objects.create(
+        post=currpost
+    )
     return HttpResponseRedirect("/")
 
+def post_creat(request):
+    if request.user.is_authenticated:
+        return render(request,'main_page/post_creat.html')
+    else:
+        return HttpResponseRedirect("account/login/")
+
 def category_show(request,category_id):
-    post_list = post.objects.filter(category__id=category_id)
+    post_list = post.objects.filter(category__id=category_id).order_by("-id")
     paginator = Paginator(post_list,20)
     curr_page_num = request.GET.get('page')
     try:
@@ -73,7 +82,7 @@ def search(request):
     keyword = request.GET.get('keyword')
     if not keyword:
         error_msg = '请输入关键字'
-        post_list = post.objects.all()
+        post_list = post.objects.all().order_by("-id")
         paginator = Paginator(post_list,20)
         curr_page_num = request.GET.get('page')
         try:
@@ -90,7 +99,7 @@ def search(request):
         'error_msg':error_msg
         }
         return render(request,'main_page/index.html',var)
-    post_list = post.objects.filter(title__icontains=keyword)
+    post_list = post.objects.filter(title__icontains=keyword).order_by("-id")
     paginator = Paginator(post_list,20)
     curr_page_num = request.GET.get('page')
     try:
