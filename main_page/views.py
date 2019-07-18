@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import post,userinfo,category,post_like_count
+from .models import post,userinfo,category,post_like_count,post_like
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from my_page.models import homepage
+from django.forms.models import model_to_dict
+from django.views.decorators.http import require_POST
+
 # Create your views here.
 
 category_list = category.objects.all()
@@ -27,15 +31,16 @@ def index(request):
 
 def post_show(request,post_id):
     post_to_show = post.objects.get(id=post_id)
+    curr_post_like_count = post_like_count.objects.get(post=post_to_show)
     post_to_show.view_count+=1
     post_to_show.ranking+=1
     post_to_show.save()
-    return render(request,'main_page/post.html',{'POST':post_to_show})
+    return render(request,'main_page/post.html',{'POST':post_to_show, 'LIKE_COUNT':curr_post_like_count})
 
 def post_sub(request):
-    content=request.POST.get('content')
+    content = request.POST.get('content')
     summary = request.POST.get('summary')
-    title=request.POST.get('title')
+    title = request.POST.get('title')
     categorys = category.objects.get(id=int(request.POST.get('category')))
     author = userinfo.objects.get(user__username=request.user)
     currpost = post.objects.create(
@@ -115,3 +120,42 @@ def search(request):
         'PAGINATOR':paginator
     }
     return render(request,'main_page/index.html',var)
+
+def like(request):
+    if not request.user.is_authenticated:
+        return HttpResponse('请先登录')
+    post_id=int(request.GET.get('post'))
+    like_post=post_like.objects.filter(post__id=post_id,like_user__user__username=request.user)
+    if like_post.exists():
+        return HttpResponse('您已点赞')
+    else:
+        curr_user = userinfo.objects.get(user=request.user)
+        curr_post = post.objects.get(id=post_id)
+        curr_like_count = post_like_count.objects.get(post=curr_post)
+        post_like.objects.create(post=curr_post,like_user=curr_user)
+        curr_like_count.count+=1
+        curr_like_count.save()
+        return HttpResponse(curr_like_count.count)
+
+def favor(request):
+    if not request.user.is_authenticated:
+        return HttpResponse('请先登录')
+    post_id=int(request.GET.get('post'))
+    curr_user=homepage.objects.get(owner__user=request.user)
+    curr_post = curr_user.favorte.filter(id=post_id)
+    if curr_post.exists():
+        return HttpResponse("您已收藏")
+    curr_user.favorte.add(post_id)
+    return HttpResponse("已收藏")
+
+@require_POST
+def deletePost(request):
+    category_id=request.POST.get('catagory_id')
+    curr_category=category_list.get(id=category_id)
+    delete_post_id=request.POST.get('post_id')
+    if request.user != curr_category.admin.user:
+        return HttpResponse("N")
+    else:
+        delete_post=post.objects.get(id=delete_post_id)
+        delete_post.delete()
+        return HttpResponse("Y")

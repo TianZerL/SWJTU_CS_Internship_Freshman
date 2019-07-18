@@ -1,6 +1,45 @@
 {% extends "main_page/index.html" %} {% load staticfiles %} {% load comments %}
 {% block postlist %}
 {% load paginator_tag %}
+{% if user == POST.category.admin.user %}
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <ul class="breadcrumb">
+            <li>
+                版主操作: <a id="del" style="cursor:pointer">删除该帖子</a>
+                <script>
+                    $(document).ready(function() {
+                        $("#del").click(function() {
+                            if(!confirm("确认删除?"))
+                            {   
+                                return;
+                            }
+                            else
+                            {
+                                category_id={{POST.category.id}};
+                                post_id={{POST.id}};
+                                $.post("{% url 'delete_post' %}",{ 'catagory_id':category_id,'post_id':post_id,csrfmiddlewaretoken: '{{ csrf_token }}' },function(msg) {
+                                    if(msg=="Y")
+                                    {    
+                                        window.location.replace("{% url 'index' %}");
+                                    }
+                                    else
+                                    {
+                                        $.alert-warning("操作失败");
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    // $(document).ready(function() {
+                    //     $("#_content").text()
+                    // })
+                </script>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endif %}
 <div class="row clearfix">
     <div class="col-md-12 column">
         <div class="jumbotron">
@@ -29,13 +68,46 @@
                 </p>
             </div>
             <div class="well">
-                <p>{{POST.content|safe}}</p>
+                <p id='article_content'>{{POST.content|safe}}</p>
                 <hr>
             </div>
         </div>
-        <div>
-                <a href="#"><embed src="{% static 'image/thumbs-up.svg' %}" type="image/svg+xml" />赞一个</a>
-                <hr />
+        <div class="well">
+
+            <p id="like_count">{{LIKE_COUNT.count}}</p>
+            <a id="like" style="cursor:pointer"><embed src="{% static 'image/thumbs-up.svg' %}"
+                    type="image/svg+xml" />赞一个</a>
+            <script>
+                $(document).ready(function () {
+                    $('#like').click(function () {
+                        var post = {{ POST.id }};
+                        $.get("{% url 'like' %}", { 'post': post }, function (msg) {
+                            $("#like_count").html(msg);
+                            if(msg=="请先登录")
+                            {
+                                $("#like_count").wrap("<a href='{% url 'login' %}'></a>");
+                            }
+                        });
+                    });
+                });
+            </script>
+            <p id="favor_state"></p>
+            <a id="favor" style="cursor:pointer"><embed src="{% static 'image/star.svg' %}"
+                    type="image/svg+xml" />收藏</a>
+            <script>
+                $(document).ready(function () {
+                    $('#favor').click(function () {
+                        var post = {{ POST.id }};
+                        $.get("{% url 'favor' %}", { 'post': post }, function (msg) {
+                            $("#favor_state").html(msg);
+                            if(msg=="请先登录")
+                            {
+                                $("#favor_state").wrap("<a href='{% url 'login' %}'></a>");
+                            }
+                        });
+                    });
+                });
+            </script>
         </div>
     </div>
 </div>
@@ -50,7 +122,7 @@
                     {{ form.security_hash }}
                     <textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
                     <input type="hidden" name="next" value="{% url 'curr_post' POST.id %}" />
-            {% if user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <br />
                     <input class="btn btn-default" type="submit" value="提交评论" id="id_submit" />
                     <hr />
@@ -64,6 +136,8 @@
 </div>
 <div class="row clearfix">
     <div class="col-md-12 column">
+            {%get_comment_count for POST as comment_count%}
+            <p>共{{comment_count}}条评论</p>
         <ul class="list-group">
             {% get_comment_list for POST as comment_list %}
             {% for comment in comment_list %}
@@ -71,9 +145,8 @@
                 <p>{{comment.id}}楼 ，发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br />
                     来自:{{comment.user_name}} <br />
                     <hr />
-                    {{comment.comment|safe}}
+                    <p>{{comment.comment|safe}}</p>
                 </p>
-
             </li>
             {% endfor %}
         </ul>

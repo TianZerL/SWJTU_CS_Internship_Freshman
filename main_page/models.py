@@ -35,11 +35,15 @@ class post_like(models.Model):
     like_user = models.ForeignKey(userinfo,on_delete=models.CASCADE)
     like_time = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
+    def __str__(self):
+        return self.post.title+"_"+self.like_user.user.username
 
 class post_like_count(models.Model):
     post = models.OneToOneField(post,on_delete=models.CASCADE)
     count = models.IntegerField(default=0)
     objects = models.Manager()
+    def __str__(self):
+        return self.post.title
 
 class post_tag(models.Model):
     tag_name = models.CharField(max_length=16)
