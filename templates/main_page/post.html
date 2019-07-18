@@ -1,12 +1,12 @@
 {% extends "main_page/index.html" %} {% load staticfiles %} {% load comments %}
 {% block postlist %}
 {% load paginator_tag %}
-{% if user == POST.category.admin.user %}
+{% if user == POST.category.admin.user or user == POST.author.user %}
 <div class="row clearfix">
     <div class="col-md-12 column">
         <ul class="breadcrumb">
             <li>
-                版主操作: <a id="del" style="cursor:pointer">删除该帖子</a>
+                操作: <a id="del" style="cursor:pointer">删除该帖子</a>
                 <script>
                     $(document).ready(function() {
                         $("#del").click(function() {
@@ -31,20 +31,32 @@
                             }
                         });
                     });
-                    // $(document).ready(function() {
-                    //     $("#_content").text()
-                    // })
                 </script>
             </li>
         </ul>
     </div>
 </div>
 {% endif %}
+<script>
+    $(document).ready(function() {
+        var content_article=$("#article_content")
+        var content_comment=$("#comment_fliter")
+        var reg = new RegExp("草|日|FucK|Shit","g")
+        content_article.html(content_article.html().replace(reg, "*"));
+        content_comment.html(content_comment.html().replace(reg, "*"));
+    });
+</script>
 <div class="row clearfix">
     <div class="col-md-12 column">
         <div class="jumbotron">
             <div>
                 <h1>{{POST.title}}</h1>
+            </div>
+            
+            <hr />
+            <div class="well"  id='article_content' >
+                <p>{{POST.content|safe}}</p>
+                <hr>
             </div>
             <div>
                 <p>
@@ -58,7 +70,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th>{{ POST.author }}</th>
+                                <th><img alt="photo" src="{{MEDIA_URL}}{{POST.author.photo}}" class="img-thumbnail" height="50" width="50" /> {{ POST.author }}</th>
                                 <th>{{ POST.view_count }}</th>
                                 <th>{{ POST.publish_date }}</th>
                             </tr>
@@ -66,10 +78,6 @@
                     </table>
                     <hr>
                 </p>
-            </div>
-            <div class="well">
-                <p id='article_content'>{{POST.content|safe}}</p>
-                <hr>
             </div>
         </div>
         <div class="well">
@@ -138,15 +146,14 @@
     <div class="col-md-12 column">
             {%get_comment_count for POST as comment_count%}
             <p>共{{comment_count}}条评论</p>
-        <ul class="list-group">
+        <ul class="list-group" id="comment_fliter">
             {% get_comment_list for POST as comment_list %}
             {% for comment in comment_list %}
             <li class="list-group-item">
-                <p>{{comment.id}}楼 ，发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br />
-                    来自:{{comment.user_name}} <br />
+                <p class="well well-sm">{{comment.id}}楼 ，发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br />
+                    来自:{{comment.user_name}}</p>
                     <hr />
                     <p>{{comment.comment|safe}}</p>
-                </p>
             </li>
             {% endfor %}
         </ul>

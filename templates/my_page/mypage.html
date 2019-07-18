@@ -1,11 +1,19 @@
 {% extends "main_page/index.html" %}
 {% load staticfiles %}
 {% block main %}
+<script>
+    $(document).ready(function() {
+        $("#edit").click(function() {
+            $("#edit_modal").modal()
+        });
+    });
+</script>
 <div class="row clearfix">
     <div class="col-md-2 column text-center">
-        <div class="row">
-            <img alt="photo" src="{{MEDIA_URL}}{{PAGE.owner.photo}}" height="140" width="140" />
+        <div class="row" align="center">
+            <img alt="photo" src="{{MEDIA_URL}}{{PAGE.owner.photo}}" class="img-responsive" height="140" width="140" />
         </div>
+        <hr />
         <div class="row panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -15,11 +23,149 @@
             <div class="panel-body">
                 {{PAGE.owner.name}}
             </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Email：
+                </h3>
+            </div>
+            <div class="panel-body">
+                {{PAGE.owner.user.email}}
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    学院：
+                </h3>
+            </div>
+            <div class="panel-body">
+                {{PAGE.owner.college}}
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    专业：
+                </h3>
+            </div>
+            <div class="panel-body">
+                {{PAGE.owner.department}}
+            </div>
         </div>
+        <div class="well well-sm">
+            <a id="edit" style="cursor:pointer">编辑</a>
+        </div>
+    </div>
+    <div class="col-md-1 column">
 
     </div>
-    <div class="col-md-10 column">
-
+    <div class="col-md-9 column">
+        <div class="row panel panel-default">
+            <div class="panel-body">
+                {{PAGE.owner.signature}}
+            </div>
+        </div>
+        <div class="row panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    我的收藏：
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for post in PAGE.favorte.all %}
+                <div class="well well-sm">
+                    <h4>
+                        <a href="/post/{{post.id}}/">{{post.title}}</a>
+                    </h4>
+                    <p class="text-right">{{post.author}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    历史发帖：
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for post in PAGE.my_posts.all %}
+                <div class="well well-sm">
+                    <h4>
+                        <a href="/post/{{post.id}}/">{{post.title}}</a>
+                    </h4>
+                    <p class="text-right">发布于:{{post.publish_date}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">编辑</h4>
+            </div>
+            <div id="edit_info" class="modal-body">
+                <form id="data_edit" class="bs-example bs-example-form" role="form" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <span class="input-group-addon">姓名</span>
+                        <input id="name" name="new_name" type="text" class="form-control" placeholder="您的姓名">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">学院</span>
+                        <input id="college" name="new_college" type="text" class="form-control" placeholder="您的学院">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">专业</span>
+                        <input id="department" name="new_department" type="text" class="form-control" placeholder="您的专业">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">个性签名</span>
+                        <input id="signature" name="new_signature" type="text" class="form-control" placeholder="签名">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <label>头像</label>
+                        <input id="photo" name="new_photo" type="file">
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="edit_ok" type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $("#edit_ok").click(function() {
+            var fd = new FormData();
+            fd.append("new_name",$("#name").val());
+            fd.append("new_college",$("#college").val());
+            fd.append("new_department",$("#department").val());
+            fd.append("new_signature",$("#signature").val());
+            fd.append("new_photo",$("#photo")[0].files[0]);
+            fd.append("csrfmiddlewaretoken", '{{ csrf_token }}');
+            $.ajax({
+                url: "{% url 'change' %}",
+                type: 'POST',
+                data: fd ,
+                // 告诉jQuery不要去处理发送的数据
+                processData: false,
+                // 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
 {% endblock main %}

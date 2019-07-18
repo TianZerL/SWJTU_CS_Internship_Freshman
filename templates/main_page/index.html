@@ -46,10 +46,10 @@
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-2 column">
-                <img alt="logo" src="{% static 'image/logo.png' %}" height="140" width="140" />
+                <img alt="logo" src="{% static 'image/logo.png' %}" class="img-responsive" height="140" width="140" />
             </div>
             <div class="col-md-10 column">
-                <img alt="title" src="{% static 'image/jiaoda.png' %}" width="1000" />
+                <img alt="title" src="{% static 'image/jiaoda.png' %}" class="img-responsive" width="1000" />
             </div>
         </div>
         <div class="row clearfix">
@@ -84,24 +84,27 @@
                                         class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#">Action</a>
+                                        <a href="https://cas.swjtu.edu.cn/authserver/login?service=http%3A%2F%2Fportal.swjtu.edu.cn%2F">校园信息门户</a>
                                     </li>
                                     <li>
-                                        <a href="#">Another action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Something else here</a>
+                                       <a href="http://jwc.swjtu.edu.cn/index.html">教务信息</a>
                                     </li>
                                     <li class="divider">
+                                    </li>   
+                                    <li>
+                                        <a href="http://apphall.swjtu.edu.cn/new/index.html">智能办公平台</a>
                                     </li>
                                     <li>
-                                        <a href="#">Separated link</a>
+                                        <a href="http://ids.swjtu.edu.cn/amserver/UI/Login?goto=http://oa.swjtu.edu.cn/oasys/index.nsf/index?readform">旧版办公平台</a>
                                     </li>
                                     <li class="divider">
+                                    </li>            
+                                    <li>
+                                        <a href="https://home.swjtu.edu.cn/">教师电子邮件</a>
                                     </li>
                                     <li>
-                                        <a href="#">One more separated link</a>
-                                    </li>
+                                        <a href="https://my.swjtu.edu.cn/">学生电子邮件</a>
+                                   </li>
                                 </ul>
                             </li>
                         </ul>
@@ -220,7 +223,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th>{{ post.author }}</th>
+                                            <th><img alt="photo" src="{{MEDIA_URL}}{{post.author.photo}}" class="img-thumbnail" height="50" width="50" /> {{ post.author }}</th>
                                             <th>{{ post.view_count }}</th>
                                             <th>{{ post.publish_date }}</th>
                                         </tr>

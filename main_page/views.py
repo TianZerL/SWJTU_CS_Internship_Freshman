@@ -56,6 +56,7 @@ def post_sub(request):
     post_like_count.objects.create(
         post=currpost
     )
+    homepage.objects.get(owner=author).my_posts.add(currpost.id)
     return HttpResponseRedirect("/")
 
 def post_creat(request):
@@ -159,3 +160,18 @@ def deletePost(request):
         delete_post=post.objects.get(id=delete_post_id)
         delete_post.delete()
         return HttpResponse("Y")
+
+def change_data(request):
+    new_name = request.POST.get('new_name')
+    new_college = request.POST.get('new_college')
+    new_department = request.POST.get('new_department')
+    new_signature = request.POST.get('new_signature')
+    new_photo = request.FILES['new_photo']
+    curr_user = userinfo.objects.get(user=request.user)
+    curr_user.name = new_name
+    curr_user.college = new_college
+    curr_user.department = new_department
+    curr_user.signature = new_signature
+    curr_user.photo = new_photo
+    curr_user.save()
+    return HttpResponse("成功！")

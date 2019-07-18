@@ -10,5 +10,6 @@ urlpatterns = [
     path('search/',views.search,name='search_post'),
     path('like/',views.like,name = 'like'),
     path('favor/',views.favor,name = 'favor'),
-    path('delete_post',views.deletePost,name = 'delete_post')
+    path('delete_post',views.deletePost,name = 'delete_post'),
+    path('change/',views.change_data,name = 'change')
 ]

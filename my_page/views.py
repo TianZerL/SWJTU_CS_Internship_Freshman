@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import homepage
+from main_page.models import userinfo
 from django.http import HttpResponseNotFound
 # Create your views here.
 
