@@ -62,6 +62,10 @@
                 {% notifications_unread as unread_count %} 
                 <a data-toggle="collapse" data-parent="#accordion" 
                 href="#collapseOne">你有{{unread_count}}条未读消息</a>
+                <a class="btn btn-info unread_btn"
+                href="{%url 'user_mark_all_read'%}">
+                 全部标记为已读
+             </a>
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
                 <div  class="panel-body">

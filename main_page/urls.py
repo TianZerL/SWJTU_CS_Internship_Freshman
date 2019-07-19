@@ -11,5 +11,6 @@ urlpatterns = [
     path('like/',views.like,name = 'like'),
     path('favor/',views.favor,name = 'favor'),
     path('delete_post',views.deletePost,name = 'delete_post'),
-    path('change/',views.change_data,name = 'change')
+    path('change/',views.change_data,name = 'change'),
+    path('readall/',views.user_mark_all_read,name = 'user_mark_all_read')
 ]

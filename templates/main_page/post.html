@@ -150,7 +150,7 @@
             {% get_comment_list for POST as comment_list %}
             {% for comment in comment_list %}
             <li class="list-group-item">
-                <p id="{{comment.id}}" class="well well-sm">{{comment.id}}楼 ，发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br />
+                <p id="{{comment.id}}" class="well well-sm">发布于{{comment.submit_date|date:"Y-m-d H:i:s"}} <br />
                     来自:{{comment.user_name}}</p>
                     <hr />
                     <p>{{comment.comment|safe}}</p>

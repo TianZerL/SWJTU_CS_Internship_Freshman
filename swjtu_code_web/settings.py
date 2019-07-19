@@ -25,7 +25,7 @@ SECRET_KEY = '+1$k+wk1$d9ebx5ay)nvu#s!y)ngno0qsye(la#45=7w*xqpyg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_comments',
     'notifications',
+    'password_reset',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,11 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
+
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25   #发件箱的smtp服务器端口
+EMAIL_HOST_USER = '2391078198@qq.com' # 你的 QQ邮箱 账号
+EMAIL_HOST_PASSWORD = 'epvstaxdnugxdhja'#QQ邮箱授权码
+EMAIL_USE_TLS = True # 这里必须是 True，否则发送不成功
+EMAIL_FROM = '2391078198@qq.com' # # 你的 QQ邮箱 账号
+DEFAULT_FROM_EMAIL = '2391078198@qq.com'# 你的 QQ邮箱 账号

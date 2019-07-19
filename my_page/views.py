@@ -23,6 +23,7 @@ def homepage_show(request,name):
         return render(request,'my_page/mypage.html',{'PAGE':page,'unread_list':unread})
     return HttpResponseNotFound(request.user.username)
 
+
 @receiver(comment_was_posted, sender=Comment)
 def send_message(sender, **kwargs):
     # 获取相关数据

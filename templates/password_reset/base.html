@@ -1,0 +1,15 @@
+{% extends "main_page/index.html" %}
+{% block main %}
+<script>
+    $(document).ready(function () {
+        $("input").not("input:submit").addClass("form-control");
+        $("input:submit").addClass("btn btn-default");
+    })
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column text-center" align="center">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+{% endblock %}

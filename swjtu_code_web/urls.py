@@ -25,4 +25,5 @@ urlpatterns = [
     path('account/',include('account_page.urls')),
     path('u/',include('my_page.urls')),
     path('comments/', include('django_comments.urls')),
+    path('reset/',include('password_reset.urls'))
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

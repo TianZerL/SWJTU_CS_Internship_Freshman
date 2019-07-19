@@ -6,6 +6,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from my_page.models import homepage
 from django.forms.models import model_to_dict
 from django.views.decorators.http import require_POST
+from django.urls import reverse
 
 # Create your views here.
 
@@ -152,14 +153,11 @@ def favor(request):
 @require_POST
 def deletePost(request):
     category_id=request.POST.get('catagory_id')
-    curr_category=category_list.get(id=category_id)
+    #curr_category=category_list.get(id=category_id)
     delete_post_id=request.POST.get('post_id')
-    if request.user != curr_category.admin.user:
-        return HttpResponse("N")
-    else:
-        delete_post=post.objects.get(id=delete_post_id)
-        delete_post.delete()
-        return HttpResponse("Y")
+    delete_post=post.objects.get(id=delete_post_id)
+    delete_post.delete()
+    return HttpResponse("Y")
 
 def change_data(request):
     new_name = request.POST.get('new_name')
@@ -180,3 +178,9 @@ def change_data(request):
         curr_user.photo = new_photo
     curr_user.save()
     return HttpResponse("成功！")
+
+def user_mark_all_read(request):
+    user = request.user
+    notifies = user.notifications.all()
+    notifies.mark_all_as_read()  # 标记所有未读为已读
+    return HttpResponseRedirect('/u/'+user.username+'/') 
