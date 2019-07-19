@@ -1,31 +1,37 @@
-{% extends "account_page/temp.html" %}
-
-{% block content %}
-<div class="login_div ">
-    <h2>登录</h2>
-    {% if message %}
-    {{ message }}
-    {% endif %}
-    <form class="form-horizontal" role="form" method="post" action="" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-        {% if field.errors %}
-        <p>{{ field.errors|safe }}</p>
+{% extends "main_page/index.html" %}
+{% load staticfiles %}
+{% block main %}
+<script>
+    $(document).ready(function () {
+        $("input").addClass("form-control");
+    })
+</script>
+<div class="row clearfix">
+    <div class="col-md-12 column text-center" align="center">
+        <h2>登录</h2>
+        {% if message %}
+        {{ message }}
         {% endif %}
-        <div class="form-group">
-            <div class="col-sm-3 control-label">
-                {{ field.label_tag }}
+        <form class="form-horizontal" role="form" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            {% if field.errors %}
+            <p>{{ field.errors|safe }}</p>
+            {% endif %}
+            <div class="form-group">
+                <label class="col-sm-5 control-label">{{ field.label_tag }}</label>
+                <div class="col-sm-2">
+                    {{ field }}
+                </div>
             </div>
-            <div class="col-sm-10">
-                {{ field }}
-            </div>
-        </div>
-        {% if field.help_text %}
-        <p>{{ field.help_text|safe }}</p>
-        {% endif %}
-        {% endfor %}
-        <input type="submit" value="登录" class="submit" />
-    </form>
-    <p style="float: left;">没有账户？<a href="/account/register">注册</a>一个</p>
+            {% if field.help_text %}
+            <p>{{ field.help_text|safe }}</p>
+            {% endif %}
+            {% endfor %}
+            <button type="submit" class="btn btn-default">登录</button>
+        </form>
+        <br />
+        <p class="col-sm-offset-4 col-sm-4 well well-sm">没有账户？<a href="/account/register/">注册</a>一个</p>
+    </div>
 </div>
 {% endblock %}

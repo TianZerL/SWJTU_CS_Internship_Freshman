@@ -8,7 +8,7 @@
         });
     });
 </script>
-<div class="row clearfix">
+<div class="row clearfix" id="info">
     <div class="col-md-2 column text-center">
         <div class="row" align="center">
             <img alt="photo" src="{{MEDIA_URL}}{{PAGE.owner.photo}}" class="img-responsive" height="140" width="140" />
@@ -183,6 +183,7 @@
                 contentType: false,
                 success: function (data) {
                     alert(data);
+                    window.location.replace(window.location.pathname);
                 },
                 error: function (data) {
                     console.log(data);
