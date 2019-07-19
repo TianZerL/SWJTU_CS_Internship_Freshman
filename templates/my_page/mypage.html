@@ -57,6 +57,29 @@
     </div>
     <div class="col-md-9 column">
         <div class="row panel panel-default">
+            <div class="panel-heading">
+                {% load notifications_tags %}
+                {% notifications_unread as unread_count %} 
+                <a data-toggle="collapse" data-parent="#accordion" 
+                href="#collapseOne">你有{{unread_count}}条未读消息</a>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div  class="panel-body">
+                    <ul class="list-group-item well">
+                        {%for unread_item in unread_list%}
+                            <li class="list-group-item" id="unread_{{unread_item.id}}">
+                                <span>{{unread_item.timesince}}前 &gt;
+                                <a href="/post/{{unread_item.target.id}}/#{{unread_item.action_object.id}}">
+                                    {{unread_item.verb|safe}}
+                                </a>  </span> <hr />
+                                <p>{{unread_item.description|safe}}</p>
+                            </li>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row panel panel-default">
             <div class="panel-body">
                 {{PAGE.owner.signature}}
             </div>
@@ -102,7 +125,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">编辑</h4>
+                <h4 class="modal-title" id="myModalLabel">编辑<small>(无须更改请留空)</small></h4>
             </div>
             <div id="edit_info" class="modal-body">
                 <form id="data_edit" class="bs-example bs-example-form" role="form" enctype="multipart/form-data">

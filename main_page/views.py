@@ -166,12 +166,17 @@ def change_data(request):
     new_college = request.POST.get('new_college')
     new_department = request.POST.get('new_department')
     new_signature = request.POST.get('new_signature')
-    new_photo = request.FILES['new_photo']
+    new_photo = request.FILES.get('new_photo')
     curr_user = userinfo.objects.get(user=request.user)
-    curr_user.name = new_name
-    curr_user.college = new_college
-    curr_user.department = new_department
-    curr_user.signature = new_signature
-    curr_user.photo = new_photo
+    if new_name:
+        curr_user.name = new_name
+    if new_college:
+        curr_user.college = new_college
+    if new_department:
+        curr_user.department = new_department
+    if new_signature:
+        curr_user.signature = new_signature
+    if new_photo:
+        curr_user.photo = new_photo
     curr_user.save()
     return HttpResponse("成功！")

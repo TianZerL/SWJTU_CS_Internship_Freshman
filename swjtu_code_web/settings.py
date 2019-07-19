@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'my_page',
     'django.contrib.sites',
     'django_comments',
+    'notifications',
 ]
 
 MIDDLEWARE = [
