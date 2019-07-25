@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'swjtu_code_web_mainDB',
         'USER': 'root',
         'PASSWORD': '2333666',
-        'HOST': '192.168.12.108',
+        'HOST': '192.168.12.108',#注意修改
         'PORT': '3306'
     }
 }

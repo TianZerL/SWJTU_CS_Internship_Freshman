@@ -11,18 +11,11 @@
     转到/account/logout
 # js/css/imag路径
     ../js/xxx.js || ../css/xxx.css || ../imag/xxx.jpg
-# 超级用户
-    用户名：admin_coder
-    密码：qwe2333666
-# 数据库
-    root
-    2333666
 # 板块列表变量
     CATEGORY_LIST
 ## 板块变量成员
     -id(返回给后端)
     -name
-
 # 存放帖子的列表变量名
     POST_LIST
 ## 成员变量
@@ -38,7 +31,6 @@
     -modify_date
 ## 可用于
     -index.html
-
 # 后端返回给post.html的符合id要求帖子变量名
     POST
 # 帖子显示路径
@@ -59,11 +51,10 @@
     {% get_comment_count for POST as comment_count %}
     This entry has {{ comment_count }} comments.
 # 添加评论
-    大致模板：参考：https://www.cnblogs.com/feixuelove1009/p/8000556.html
     {% get_comment_form for POST as form %}
         <table>
-          <form action="{% comment_form_target %}" method="post"> （这句话不可改变）
-                {% csrf_token %} （这句话不可改变）
+          <form action="{% comment_form_target %}" method="post"> 
+                {% csrf_token %}
                 {{ form.comment }}
                 {{ form.honeypot }} 
                 {{ form.content_type }}
@@ -75,7 +66,6 @@
         </table>
 # 当前帖子地址变量：
     {% url 'curr_post' POST.id %}
-
 # 表示当前用户的变量
     user
 # 判断登录
